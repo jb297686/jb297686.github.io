@@ -23,7 +23,7 @@ avatar_image: /img/john_baker_profile_picture.png
 #-------------------------------
 # Contact links
 linkedln: "https://www.linkedin.com/in/john-richard-baker" # Add your linkedln handle
-github: "https://jb297686.github.io/"  # Add your github handle
+github: "https://github.com/jb297686"  # Add your github handle
 
 paginate: 6
 paginate_path: "/page/:num"
@@ -51,5 +51,6 @@ defaults:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
 
 
