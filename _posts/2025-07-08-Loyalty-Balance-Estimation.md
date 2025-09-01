@@ -207,6 +207,7 @@ for column in ["points_balance", "distance_from_store"]:
 
 ![Box plot for points_balance](/img/posts/loyalty_regresion_box_plot_points_balance.png)
 <br>
+<br>
 ![Box plot for distance_from_store](/img/posts/loyalty_regresion_box_plot_distance_from_store.png)
 
 The box plot for *points_balance* shows that two customers have balances in excess of 100,000. To find out if that's realistic or not, we managed to open a line of communication with the IT manager at the supermarket's data centre, who revealed that:
@@ -801,6 +802,7 @@ plt.tight_layout()
 plt.show()
 ```
 ![Random forest feature importance](/img/posts/loyalty_random_forest_feature_importance.png)
+<br>
 <br>
 ![Random forest permutation importance](/img/posts/loyalty_random_forest_permutation_importance.png)
 
