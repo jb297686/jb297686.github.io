@@ -810,8 +810,9 @@ plt.show()
 Both analyses show that:
 - *distance_from_store* is the most important variable in predicting *points_balance*, which is what we also saw with our linear regression and decision tree models.
 - *credit_score* and *gender_M* are of little use in predicting *points_balance*. This confirms what we saw using RFECV, which suggested we should remove those two variables from our linear regression analysis.
-<br>
+
 ---
+
 # Modelling Summary <a name="modelling-summary"></a>
 Understanding which variables drive points balances is important for our own understanding of the problem. The main requirement from our client is that we reliably estimate the loyalty points balances for the customers whose balances are missing. To that end we'll pick the model that gives us the highest accuracy, which is the random forest.
 
