@@ -22,8 +22,9 @@ Here at *We-Do-Data-Science-So-You-Don't-Have-To Limited* our work is never done
 - [7. Modelling Summary](#modelling-summary)
 - [8. Estimating Customer Points Balances](#modelling-predictions)
 - [9. Growth and Next Steps](#growth-next-steps)
-<br>
+
 ---
+
 # Project Overview <a name="project-overview"></a>
 ### Context <a name="project-overview-context"></a>
 The supermarket management are in a bit of a pickle following the incident at their data centre. Some key customer data got wiped from their corporate database in what we've been told was a 'fat finger' incident. Apparently the CFO arrived at the data centre unannounced in the early hours of the morning and told the night shift IT technician that he needed to do an ad-hoc audit of the accounting information in the corporate database. Somehow, while running his audit procedure, the CFO managed to accidentally delete data from two key database tables. One table contained details of all senior management hospitality account expenditure over the last three years. We've been told not to worry about that and to focus our efforts on the other affected table, which contained the loyalty card points balances of all the supermarket's customers.
@@ -61,8 +62,9 @@ In the future our model will be useful for the client when analysing locations f
 While our predictive accuracy was relatively high (95.2% based on our test set with our selected model) we could look to further improve accuracy by tuning the random forest hyperparameters such as maximum tree depth and the number of trees in the forest.
 
 In terms of data, we could ask our client if their loyalty points have an expiration date and if they have any data that shows the percentage of loyalty card points that typically expire without being used. We could use that data to further refine our points balance estimates.
-<br>
+
 ---
+
 # Data Overview  <a name="data-overview"></a>
 Our client has provided us with copies of three database tables. We need to estimate the *points_balance* metric for the 50% of customers whose points balance is missing. The *points_balance* metric exists in the *customer_loyalty* table.  The *customer_details* table contains a list of all the customers who have loyalty cards.
 
@@ -112,7 +114,7 @@ pickle.dump(data_for_inference, open("data/regression_data_for_inference.p", "wb
 ```
 Our dataset now contains the following fields:
 
-|**Variable name** | **Type** | **Description**|
+|**Variable name**|**Type**|**Description**|
 |---|---|---|
 | points_balance | Output | The customer's loyalty card points balance |
 | distance_from_store | Input | The distance (in km) that the customer lives from their nearest branch |
@@ -123,8 +125,9 @@ Our dataset now contains the following fields:
 | average_basket_value | Input | Customer's average spend (in £) per transaction at the supermarket in the last year |
 | total_items | Input | Total number of items the customer purchased in the supermarket in the last year |
 | product_area_count | Input | Number of the supermarket's product areas customer purchased items from in the last year |   
-<br>
+
 ---
+
 # Modelling Approach  <a name="modelling-approach"></a>
 We'll model the relationship between *points_balance* and the input variables for the customers that we have points balances for, retaining a subset of the data for testing. If our testing shows that we are able to reliably estimate *points_balance* based on the input variables, we'll then proceed to make estimates of the points balances for customers whose *points_balance* data was wiped by the CFO.
 
@@ -132,8 +135,9 @@ The three types of model that we will train are:
 - Linear Regression
 - Decision Tree
 - Random Forest
-<br>
+
 ---
+
 # Linear Regression  <a name="linear-regression"></a>
 We'll use the scikit-learn library in Python to create our models. The code to do this is below, broken down into four sections:
 - Data import
@@ -202,6 +206,7 @@ for column in ["points_balance", "distance_from_store"]:
 ```
 
 ![Box plot for points_balance](/img/posts/loyalty_regresion_box_plot_points_balance.png)
+<br>
 ![Box plot for distance_from_store](/img/posts/loyalty_regresion_box_plot_distance_from_store.png)
 
 The box plot for *points_balance* shows that two customers have balances in excess of 100,000. To find out if that's realistic or not, we managed to open a line of communication with the IT manager at the supermarket's data centre, who revealed that:
@@ -417,8 +422,9 @@ regressor.intercept_
 Not surprisingly, the coefficient for *distance_from_store* is negative, as customers who live farther away probably visit the store less often.
 
 What did surprise us though was that the coefficient of *total_sales* was negative, as we might expect higher spending to translate to higher points balances. We discussed this with our client who explained that this supermarket's loyalty scheme is aimed at driving stock turnover and so gives customers more points the more items they purchase (rather than the more money they spend). A customer who buys several inexpensive items would earn more loyalty points than one who buys a small number of expensive items, which explains the negative coefficient of *total_sales*. The scheme also sometimes gives customers large bonus point awards for buying products in different categories, hence the positive relationship between *points_balance* and *product_area_count*.
-<br>
+
 ---
+
 # Decision Tree <a name="decision-tree"></a>
 Next, we'll see if we can get more accurate predictions using the scikit-learn library in Python to create a decision tree. The code to do this is below, broken down into four sections:
 - Data import
@@ -616,8 +622,9 @@ plt.show()
 This is a really powerful visual that will really help us when we explain our modelling work to our client.
 
 Interestingly the *distance_from_store* metric is used for the first split, suggesting (just as we saw in our linear regression model) that this variable plays an important role in determining points balances.
-<br>
+
 ---
+
 # Random Forest <a name="random-forest"></a>
 The final model structure we will investigate is the random forest, which is where we create a group (an 'ensemble') of decision trees, with each tree being limited to using a randomly-assigned subset of the overall dataset and each decision node being limited to using a randomly-assigned subset of the input variables.
 
@@ -794,6 +801,7 @@ plt.tight_layout()
 plt.show()
 ```
 ![Random forest feature importance](/img/posts/loyalty_random_forest_feature_importance.png)
+<br>
 ![Random forest permutation importance](/img/posts/loyalty_random_forest_permutation_importance.png)
 
 Both analyses show that:
@@ -815,8 +823,9 @@ Understanding which variables drive points balances is important for our own und
 - Decision Tree: 0.840
 
 Our client did not ask for an analysis of the drives of customer loyalty points balances, but we will feed back to them our finding that *distance_from_store* is the most important variable in predicting a customer's points balance, which may be useful for the client to know going forward, especially if they are considering opening additional stores.
-<br>
+
 ---
+
 # Estimating the Missing Points Balances <a name="modelling-predictions"></a>
 We're finally ready to estimate what the points balances should be for those customers whose points balances got wiped from our client's data centre. 
 ```python
@@ -850,8 +859,9 @@ print(points_balance_predictions.mean())
 ```
 
 The average of our points balances estimates turns out to be 7,455 points. Due to the impressive accuracy score on the test data we can be reasonably confident that our estimates will be acceptable to the supermarket's customers. Since the average points balance is less than half the 15,000 points that the panicked CEO was willing to give to each customer, our ML skills will have saved our client a lot of money, which is what we like to hear!
-<br>
+
 ---
+
 # Growth and Next Steps <a name="growth-next-steps"></a>
 While our predictive accuracy was relatively high (95.2% based on our test set) we could look to further improve accuracy by tuning the random forest hyperparameters (such as maximum tree depth and the number of trees in the forest).
 
