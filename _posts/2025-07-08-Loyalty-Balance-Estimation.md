@@ -5,9 +5,10 @@ image: "/posts/regression-title-img.png"
 tags: [Customer Loyalty, Machine Learning, Regression, Python]
 ---
 
-Here at *We-Do-Data-Science-So-You-Don't-Have-To Limited* our work is never done! This morning a well-known supermarket chain got in touch to see if we could use our machine learning skills to re-create some important customer data that got deleted in a data centre incident. Let's get to it!
-<br>
+Here at *We-Do-Data-Science-So-You-Don't-Have-To Limited* our work is never done! This morning a (not very) well-known supermarket chain got in touch to see if we could use our machine learning skills to re-create some important customer data that got deleted in a data centre incident. Let's get to it!
+
 ---
+
 # Table of Contents
 - [1. Project Overview](#project-overview)
   - [Context](#project-overview-context)
