@@ -7,8 +7,9 @@ tags: [Deep Learning, CNN, Data Science, Computer Vision, Python]
 
 Here at *We-Do-Data-Science-So-You-Don't-Have-To Limited* our work is never done! This morning a local florist got in touch to ask if we could help build a search engine for an app he's creating. The idea is that a customer would take a picture of a flower with their phone and the search engine would show them similar flowers from his product range. I told him we should be able to use transfer learning to build him a search engine quite quickly, so let's get to it!
 
-# Table of Contents
+---
 
+# Table of Contents
 - [1. Project Overview](#overview-main)
     - [Context](#overview-context)
     - [Actions](#overview-actions)
@@ -22,22 +23,17 @@ Here at *We-Do-Data-Science-So-You-Don't-Have-To Limited* our work is never done
 - [7. Execute Search](#execute-search)
 - [8. Discussion, Growth & Next Steps](#growth-next-steps)
 
-___
+---
 
 # Project Overview <a name="overview-main"></a>
-
 ### Context <a name="overview-context"></a>
-
 Our client finds that customers often come into his shop wanting to buy the kind of flowers that they've seen in a neighbour's garden or during a walk through the countryside. Sometimes it's hard to figure out what flower they're describing so usually he asks them to take a photo of the flower and show it to him.
 
 This works quite well, but often he finds that customers want a type of flower that he doesn't have in stock in his own shop, but which he knows he can get from the wholesale market. Once they've made the effort of coming to his shop customers usually want to take flowers away there and then, so they either end up settling for something that isn't quite what they were looking for or, worse still, they walk out without buying anything.
 
 So, he'd like us to build a search engine that let's customers identify which flower they're looking at and to then order through his app for next day delivery.  He'd like the search engine to include all the types of flowers that he can buy at the wholesale flower market. If a customer orders a flower he doesn't have in stock he can pop to the wholesale market the next morning and then ship it to them.
 
-<br>
-<br>
 ### Actions <a name="overview-actions"></a>
-
 To implement our search engine we'll take inspiration from the vector embedding approach that is currently very popular for text-based document search. We'll use the pre-trained VGG16 network, but, instead of using it to make a class prediction, we'll modify it to produce a "feature vector" representation of each flower image. We'll then use these vectors to compare images and find images of flowers that are similar to the image provided by the end user (the florist's customer).
 
 To get our vector representation of an image we'll replace the max pooling layer in the VGG16 architecture with an average pooling layer and take that layer's output as our vector representation of an image.
@@ -46,14 +42,9 @@ We'll pre-process the 6149 images in our dataset to make them all the same size,
 
 We'll then reduce the search hits down to a list of unique flower types and return one image of the five most similar types of flower to the user.
 
-<br>
-<br>
-
 ### Results <a name="overview-results"></a>
 We tested two sample images and found that our search engine was able to return images of flowers that are pretty good matches for the sample images provied. You can see the sample images and the search hits in the dedicated section, below.
 
-<br>
-<br>
 ### Discussion, Growth & Next Steps <a name="overview-growth"></a>
 We coded this project up as a proof of concept. For a production app we'd split the code that does the searching out into a separate script to allow a front-end engineer to use this code when developing the user app while the AI engineers continue to refine the vectorisation model.
 
@@ -63,34 +54,26 @@ The early results we got with a couple of sample images were quite encouraging. 
 
 The first match by cosine similarity is in effect a class prediction.  It would be interesting to compare accuracy of this against the baseline VGG prediction accuracy on the same dataset.
 
-___
+---
 
 # Sample Data Overview <a name="sample-data-overview"></a>
 
-By happy coincidence it turns out that the range of flowers sold at the wholesale market is exactly the same as the range of flower varieties in the *Oxford 102 Category Flower Dataset* ([102 Category Flower Dataset](https://www.robots.ox.ac.uk/%7Evgg/data/flowers/102/)) so we'll use that as our image dataset.
-@InProceedings{Nilsback08,
-   author = "Nilsback, M-E. and Zisserman, A.",
-   title = "Automated Flower Classification over a Large Number of Classes",
-   booktitle = "Proceedings of the Indian Conference on Computer Vision, Graphics and Image Processing",
-   year = "2008",
-   month = "Dec"
-}
+By happy coincidence it turns out that the range of flowers sold at the wholesale market is exactly the same as the range of flower varieties in the *Oxford 102 Category Flower Dataset* so we'll use that as our image dataset.
+
+- [102 Category Flower Dataset](https://www.robots.ox.ac.uk/%7Evgg/data/flowers/102/): *Nilsback, M-E. and Zisserman, A.*, **Automated Flower Classification over a Large Number of Classes**, Proceedings of the Indian Conference on Computer Vision, Graphics and Image Processing (2008)
+
 This dataset contains images of 102 different types of flowers that are commonly found in the United Kingdom. One unusual aspect of this dataset is that its test set (6149 images) is much larger than its train set (1000 images). For our purposes it makes sense to use the 6149 images in the test set to create our vector database of flower images (we'll call this our "database set") and use a sample of images from the training set to test our search engine.
 
 This is a sample of the images in the database set:
 
-<br>
 ![Deep Learning Search Engine - Image Examples](/img/posts/search-engine-image-examples-flowers.png)
 
 In image datasets it's not uncommon to encounter multiple different sizes of images and at this stage we notice that the dataset contains images of various sizes, ranging from 500x500 to 1168x500. For now we make a note of this fact, and later we'll add some code handle it.
-___
-<br>
+
+---
 
 # Transfer Learning Overview <a name="transfer-learning-overview"></a>
-
-<br>
 ### Overview
-
 The idea of transfer learning is that we take a model that was trained for some other purpose and, after making a few adjustments, apply it to some other task. In other words we  *transfer* the capabilities of the model from the original task it was designed for to our own, specific task.
 
 We'll use one of the VGG family of models. These were developed by the Visual Geometry Group (VGG) at Oxford University. Specifically, we'll use VGG16 which consists of 13 convolutional layers and 3 fully-connected layers and was trained on the famous *ImageNet* database of millions of images. ImageNet contains more than 20,000 categories of images, so very many of them will *not* be of flowers. Our hope though, is that it will be sufficiently powerful that when we leverage its classification abilities on our task it'll enable us to produce a pretty good search engine. 
@@ -99,18 +82,14 @@ By default the output of VGG16 would be a prediction of which class an image bel
 
 This *transfer learning* approach should save us a lot of time and effort and enable us to leverage the power of an existing (and very successful) model. To apply machine learning techniques to a business problem you don't always have to create your own model architecture (which can involve many iterations and much tweeking) and go to the expense (both computation and monetary) of training your own model from scratch.
 
-<br>
 ![VGG16 Architecture](/img/posts/vgg16-architecture-flowers.png)
 
-<br>
 ### Vector Representation of Images
-
 The VGG16 model came second in the classification track of the ImageNet Challenge 2014. To adapt it to our task we'll first remove the final four layers (three fully-connected layers and the softmax prediction layer) then, since the output of the 7x7x512 max pooling layer would be multiple arrays, we'll replace it with an average pooling layer that will output a single numeric vector for each image we path through the network, which is what we want for our image simiilarity comparision.
 
 In other words, our plan is to user the power of VGG16's 13 convolutional layers to produce a representation of an image that we can readily use in our image search task.
 
-___
-<br>
+---
 
 # Adjusting the VGG16 Model <a name="vgg16-setup"></a>
 We make use of Keras for loading VGG16 and for tailoring it (removing the final few layers and using average pooling instead of max pooling). 
@@ -121,7 +100,6 @@ In the code below, we:
 * Create an instance of VGG16 without its 'top' (that is, its fully-connected and softmax layers) and with average pooling for the new final layer
 * Save the model to h5 format so we don't have to recreate it every time we want to use our search engine
 
-<br>
 ```python
 # Import required packages
 import tensorflow_datasets as tfds
@@ -151,7 +129,7 @@ model = Model(inputs=vgg.input, outputs=vgg.output)
 # Save our model to file
 model.save('vgg16-flower-search-engine.h5')
 ```
-<br>
+
 The `print(vgg.summary())` line gives us a summary of the model architecture:
 ```
 _________________________________________________________________
@@ -204,8 +182,10 @@ Non-trainable params: 0
 _________________________________________________________________
 
 ```
-<br>
+
 The output shape of the final layer `(None, 512)` indicates that the output we'll get for each image we run through the model will be a vector of length 512. That will do nicely for our image comparison. (The `None` in the layer shape is a placeholder for batch dimension, which is used when you push batches of images through a Keras model).
+
+---
 
 # Loading Our Dataset <a name="loading-dataset"></a>
 We use TensorFlow Datasets to import the *Oxford 102 Category Flower Dataset*. We pass the `with_info` parameter so we can get the class name metadata (that is, the names of the different types of flowers in the dataset).
@@ -220,11 +200,9 @@ class_names = dataset_info.features['label'].names
 
 ```
 
-___
-<br>
-# Image Preprocessing and Featurisation <a name="image-preprocessing"></a>
+---
 
-<br>
+# Image Preprocessing and Featurisation <a name="image-preprocessing"></a>
 ### Preprocessing
 Next we'll create a helper function that we can call for each image before we put the image through the network. Since the images in the dataset are not all the same size the helper function will resize the supplied image to the size that the VGG16 is designed to take, which we specified above in our `img_width` and `img_height` variables.
 
@@ -246,7 +224,6 @@ The `preprocess_image` function does the following:
 * Uses the pre-processing method for VGG16 provided by Keras, which applies adjustments to the colour channels
 * Returns the image as a numpy array
 
-<br>
 ### Preprocess and Featurise Database Images
 We'll now create a feature vector for each of the 6149 images in our database set.
 
@@ -267,12 +244,12 @@ for image in train:
 # Save the feature vectors to file for use when searching
 pickle.dump(image_vectors, open('image_vectors.p', 'wb'))
 ```
-___
-<br>
+
+---
+
 # Execute Search <a name="execute-search"></a>
 We'll now go on to search in our store of vectorized images to find images that are similar to some sample end user images.
 
-<br>
 ### Setting Up Our Vector Search Model
 Next we'll:
 * Load our adjusted VGG16 model
@@ -384,8 +361,8 @@ The results with the first sample are pretty nice, so let's try another example.
 <br>
 For both sample images our the first hit returned by our search engine was the same category as the sample image, which is really great! The other images the search engine returned will give the customer a nice selection of flowers to choose from. The app our client is developing would show the customer the prices of all the search hit flowers, so the customer would be able to pick one they like the look of at a price that suits their budget.
 
-___
-<br>
+---
+
 # Discussion, Growth & Next Steps <a name="growth-next-steps"></a>
 We coded this project up as a proof of concept. For a production app we'd split the code that does the searching out into a separate script to allow a front-end engineer to use this code when developing the user app while the AI engineers continue to refine the vectorisation model.
 
@@ -394,4 +371,5 @@ For a production app we'd also want to query the florist's product database so o
 The early results we got with a couple of sample images were quite encouraging. The next step would be to use a large batch of test images and see test for accuracy by comparing the first search engine hit with the known flower category of each test image.  Here we only looked at cosine similarity, but it would be interesting to investigate other distance metrics, such as Euclidean distance, to see if search accuracy could be made even better.
 
 The first match by cosine similarity is in effect a class prediction.  It would be interesting to compare accuracy of this against the baseline VGG prediction accuracy on the same dataset.
+
 
