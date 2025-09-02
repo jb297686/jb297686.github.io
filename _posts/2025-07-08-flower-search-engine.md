@@ -50,7 +50,7 @@ We coded this project up as a proof of concept. For a production app we'd split 
 
 For a production app we'd also want to query the florist's product database so our the app could provide users with current price and availability information for each of the search results.
 
-The early results we got with a couple of sample images were quite encouraging. The next step would be to use a large batch of test images and see test for accuracy by comparing the first search engine hit with the known flower category of each test image.  Here we only looked at cosine similarity, but it would be interesting to investigate other distance metrics, such as Euclidean distance, to see if search accuracy could be made even better.
+The early results we got with a couple of sample images were quite encouraging. The next step would be to use a large batch of test images and test for accuracy by comparing the first search engine hit with the known flower category of each test image.  Here we only looked at cosine similarity, but it would be interesting to investigate other distance metrics, such as Euclidean distance, to see if search accuracy could be made even better.
 
 The first match by cosine similarity is in effect a class prediction.  It would be interesting to compare accuracy of this against the baseline VGG prediction accuracy on the same dataset.
 
@@ -58,9 +58,9 @@ The first match by cosine similarity is in effect a class prediction.  It would 
 
 # Sample Data Overview <a name="sample-data-overview"></a>
 
-By happy coincidence it turns out that the range of flowers sold at the wholesale market is exactly the same as the range of flower varieties in the *Oxford 102 Category Flower Dataset* so we'll use that as our image dataset.
+By happy coincidence it turns out that the range of flowers sold at the wholesale market is exactly the same as the range of flower varieties in the *Oxford 102 Category Flower Dataset*, so we'll use that as our image dataset.
 
-- [102 Category Flower Dataset](https://www.robots.ox.ac.uk/%7Evgg/data/flowers/102/): *Nilsback, M-E. and Zisserman, A.*, **Automated Flower Classification over a Large Number of Classes**, Proceedings of the Indian Conference on Computer Vision, Graphics and Image Processing (2008)
+- [102 Category Flower Dataset](https://www.robots.ox.ac.uk/%7Evgg/data/flowers/102/): *Nilsback, M-E. and Zisserman, A.*, "Automated Flower Classification over a Large Number of Classes", *Proceedings of the Indian Conference on Computer Vision, Graphics and Image Processing*, 2008
 
 This dataset contains images of 102 different types of flowers that are commonly found in the United Kingdom. One unusual aspect of this dataset is that its test set (6149 images) is much larger than its train set (1000 images). For our purposes it makes sense to use the 6149 images in the test set to create our vector database of flower images (we'll call this our "database set") and use a sample of images from the training set to test our search engine.
 
@@ -371,6 +371,7 @@ For a production app we'd also want to query the florist's product database so o
 The early results we got with a couple of sample images were quite encouraging. The next step would be to use a large batch of test images and see test for accuracy by comparing the first search engine hit with the known flower category of each test image.  Here we only looked at cosine similarity, but it would be interesting to investigate other distance metrics, such as Euclidean distance, to see if search accuracy could be made even better.
 
 The first match by cosine similarity is in effect a class prediction.  It would be interesting to compare accuracy of this against the baseline VGG prediction accuracy on the same dataset.
+
 
 
 
