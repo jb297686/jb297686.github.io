@@ -342,18 +342,18 @@ The search image and search results are below:
 <br>
 ![Sample search image 1](/img/posts/sample-search-image-1.png)
 <br>
+<br>
 **Search Results**
 ![Sample search results 1](/img/posts/sample-search-results-1.png)
-
 <br>
 Pretty impressive results!  From the 102 categories of images in our database of flowers, these are the nine categories that are most similar to the sample image.
 
-<br>
 The results with the first sample are pretty nice, so let's try another example...
 
 **Search Image**
 <br>
 ![Sample search image 1](/img/posts/sample-search-image-2.png)
+<br>
 <br>
 **Search Results**
 ![Sample search results 2](/img/posts/sample-search-results-2.png)
@@ -371,5 +371,6 @@ For a production app we'd also want to query the florist's product database so o
 The early results we got with a couple of sample images were quite encouraging. The next step would be to use a large batch of test images and see test for accuracy by comparing the first search engine hit with the known flower category of each test image.  Here we only looked at cosine similarity, but it would be interesting to investigate other distance metrics, such as Euclidean distance, to see if search accuracy could be made even better.
 
 The first match by cosine similarity is in effect a class prediction.  It would be interesting to compare accuracy of this against the baseline VGG prediction accuracy on the same dataset.
+
 
 
