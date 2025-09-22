@@ -9,7 +9,7 @@ plugins:
 #-------------------------------
 # General Site Settings
 title: John Baker
-description: "Hi I'm John, and I'm a Data Scientist and Software Engineer.  My portfolio focuses on interesting projects I've recently undertaken, with a strong emphasis on business impact. Please visit my Github and LinkedIn pages using the links below!"
+description: "Hi I'm John, and this is my data science portfolio.  My portfolio focuses on interesting projects I've recently undertaken, with a strong emphasis on business impact. Please visit my Github and LinkedIn pages using the links below!"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
@@ -51,6 +51,7 @@ defaults:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
 
 
 
