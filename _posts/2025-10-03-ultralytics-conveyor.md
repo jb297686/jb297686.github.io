@@ -38,10 +38,10 @@ To show our client what can be achieved with state-of-the-art computer vision mo
 We'll use one of the Ultralytics pretrained models and do a small amount of customizing (training) on the client's dataset, to show the client what's possible.
 
 ### Results <a name="overview-results"></a>
-Here we can see that the model did really well at detecting cardboard boxes - it found all 167 of them. How awesome is that! After just 10 epochs of training the model was able to correctly detect 100% of the cardboard boxes in our validation set!
+After just 10 epochs of training the model was able to correctly detect 100% of the cardboard boxes in our validation set. Pretty impressive!
 
 ### Discussion, Growth & Next Steps <a name="overview-growth"></a>
-Our work with this dataset serves as a nice proof-of-concept that we can show to our client. The next steps would be for the client to gather some even better training data for us - ideally we want a large set of images that represent the actual environments that their products get used in - then we could train the object detection using that dataset for a larger number of epochs to get even better results.
+Our work with this dataset serves as a nice proof-of-concept that we can show to our client. The next steps would be for the client to gather some even better training data for us - ideally we want a large set of images that represent the actual environments that their products get used in - then we could train an object detection model using that dataset for a larger number of epochs to get even better results.
 
 ---
 
@@ -54,7 +54,7 @@ Each of the image files is accompanied by a text file that specifies the boundin
 
 # Fine-tuning Overview <a name="transfer-learning-overview"></a>
 ### Overview
-So we can get our results in front of our client before they go cool on the whole idea, and also to keep costs down, we'll start with a pre-existing model (rather than create our own model from scratch. We'll see how it performs on the sample data. Since we've done this kind of thing before our experience tells us that, to get even better results, it may be worth fine-tuning the model with some of the sample data provided by the customer. 
+So we can get our results in front of our client before they go cool on the whole idea, and also to keep costs down, we'll start with a pre-existing model (rather than create our own model from scratch). We'll see how it performs on the sample data. Since we've done this kind of thing before our experience tells us that, to get better results, it may be worth fine-tuning the model with some of the sample data provided by the customer. 
 
 
 ### YOLO
@@ -69,7 +69,7 @@ References:
 ---
 
 # Loading the Dataset <a name="loading-dataset"></a>
-Before we do anything else we need to install some Python packages to our Colab runtime. We'll make use of the `ultralytics` Python package for training our model and making predictions, and the `roboflow` package for loading the sample dataset our client has asked us to use. 
+We'll use Google Colab to train and test our model. Before we do anything else we need to install some Python packages to our Colab runtime. We'll make use of the `ultralytics` Python package for training our model and making predictions, and the `roboflow` package for loading the sample dataset our client has asked us to use. 
 
 In the code below, we install the `ultralytics` and `roboflow` packages to our Google Colab runtime.
 
@@ -116,7 +116,7 @@ results = model.predict("/content/conveyor-3/valid/images/box_0817_png.rf.016105
 results[0].show()
 ```
 
-When we run the code above the following image appears in our notebook:
+When we run the code above the following image appears in our Google Colab notebook:
 ![Object detection using baseline model with a sample image](/img/posts/baseline_object_detection_sample.png)
 
 Well, clearly that's not quite what we're looking for! The model missed the cardboard box on the conveyor, and it detected what it thinks is a chair, but which is actually a conveyor belt support frame.
@@ -124,7 +124,7 @@ Well, clearly that's not quite what we're looking for! The model missed the card
 ### Inspecting Performance With a Batch of Sample Images
 To get a better picture of how our baseline model performes we need to do more than test just one sample image. Handily for us the `ultralytics` Python package gives us a very easy way to visualize the model's performance on our conveyor dataset.
 
-In the code below we call the model's `val` method which will perform object detection on each image in the conveyor dataset's validation set and compare the results to the known object classes and locations in those images (which is provided with the dataset).
+In the code below we call the model's `val` method which will perform object detection on each image in the conveyor dataset's validation set.
 ```python
 results = model.val(data="/content/conveyor-3/data.yaml")
 ```
@@ -147,7 +147,7 @@ Using the `ultralytics` Python package we only need one line of code to get the 
 train_results = model.train(data="/content/conveyor-3/data.yaml", epochs=10)
 ```
 
-Since we're at the proof of concept stage and dont' want to spend too much money on training we specify just 10 epochs of training (that is, 10 full passes of all the data through the YOLO model). If the results are promising after 10 epochs we can always train with a larger number of epochs later.
+Since we're at the proof of concept stage and don't want to spend too much money on training we specify just 10 epochs of training (that is, 10 full passes of all the data through the YOLO model). If the results are promising after 10 epochs we can always train with a larger number of epochs later.
 
 ---
 
@@ -180,7 +180,4 @@ We can see that the loss function values (which are used in the training algorit
 ---
 
 # Discussion, Growth & Next Steps <a name="growth-next-steps"></a>
-Our work with this dataset serves as a nice proof-of-concept that we can show to our client. The next steps would be for the client to gather some even better training data for us - ideally we want a large set of images that represent the actual environments that their products get used in - then we could train the object detection using that dataset for a larger number of epochs to get even better results.
-
-
-
+Our work with this dataset serves as a nice proof-of-concept that we can show to our client. The next steps would be for the client to gather some even better training data for us - ideally we want a large set of images that represent the actual environments that their products get used in - then we could train an object detection model using that dataset for a larger number of epochs to get even better results.
