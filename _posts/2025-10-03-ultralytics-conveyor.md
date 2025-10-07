@@ -78,7 +78,7 @@ In the code below, we install the `ultralytics` and `roboflow` packages to our G
 !pip install roboflow
 ```
 
-Next, we need to grab our dataset from Roboflow. To do this we need the API key that Roboflow generated for us when we created our Roboflow account, and which we then stored in `Secrets` pane in Google Colab.
+Next, we need to grab our dataset from Roboflow. To do this we need the API key that Roboflow generated for us when we created our Roboflow account, and which we then stored in the `Secrets` pane in Google Colab.
 
 In the code below, we:
 * Import the required Python packages
@@ -181,4 +181,5 @@ We can see that the loss function values (which are used in the training algorit
 
 # Discussion, Growth & Next Steps <a name="growth-next-steps"></a>
 Our work with this dataset serves as a nice proof-of-concept that we can show to our client. The next steps would be for the client to gather some even better training data for us - ideally we want a large set of images that represent the actual environments that their products get used in - then we could train an object detection model using that dataset for a larger number of epochs to get even better results.
+
 
